@@ -1,4 +1,5 @@
 // src/config.js
+
 const config = {
     node_env: 'development', // ou 'production'
     server_host: 'http://localhost',
