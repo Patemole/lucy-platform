@@ -11,7 +11,7 @@ cmds = [
 [phases.backend]
 name = "Backend"
 cmds = [
-    "pip3 install -r backend/back_socratic/requirements.txt",
+    "pip install -r backend/back_socratic/requirements.txt",
     "python3 backend/back_socratic/airs/server_run.py"
 ]
 
