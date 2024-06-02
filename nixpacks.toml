@@ -5,11 +5,18 @@ builder = "nixpacks"
 
 [phases.backend]
 name = "Backend"
-entrypoint = "python back_socratic/airs/server_run.py"
+cmds = [
+    "pip install -r back_socratic/requirements.txt",
+    "python back_socratic/airs/server_run.py"
+]
 
 [phases.frontend]
 name = "Frontend"
-entrypoint = "yarn start:upenn"
+cmds = [
+    "cd frontend/test_app_modulaire_socratic",
+    "yarn install",
+    "yarn start:upenn"
+]
 
 [deploy]
 [[deploy.services]]
@@ -20,16 +27,17 @@ env = { PORT = "8000" }
 [[deploy.services]]
 name = "frontend-upenn"
 phases = ["frontend"]
+cmds = ["cd frontend/test_app_modulaire_socratic", "yarn start:upenn"]
 env = { PORT = "3001" }
 
 [[deploy.services]]
 name = "frontend-harvard"
 phases = ["frontend"]
-entrypoint = "yarn start:harvard"
+cmds = ["cd frontend/test_app_modulaire_socratic", "yarn start:harvard"]
 env = { PORT = "3002" }
 
 [[deploy.services]]
 name = "frontend-usyd"
 phases = ["frontend"]
-entrypoint = "yarn start:usyd"
+cmds = ["cd frontend/test_app_modulaire_socratic", "yarn start:usyd"]
 env = { PORT = "3003" }
