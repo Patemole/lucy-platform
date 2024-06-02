@@ -1,0 +1,35 @@
+[build]
+builder = "nixpacks"
+
+[phases]
+
+[phases.backend]
+name = "Backend"
+entrypoint = "python back_socratic/airs/server_run.py"
+
+[phases.frontend]
+name = "Frontend"
+entrypoint = "yarn start:upenn"
+
+[deploy]
+[[deploy.services]]
+name = "backend"
+phases = ["backend"]
+env = { PORT = "8000" }
+
+[[deploy.services]]
+name = "frontend-upenn"
+phases = ["frontend"]
+env = { PORT = "3001" }
+
+[[deploy.services]]
+name = "frontend-harvard"
+phases = ["frontend"]
+entrypoint = "yarn start:harvard"
+env = { PORT = "3002" }
+
+[[deploy.services]]
+name = "frontend-usyd"
+phases = ["frontend"]
+entrypoint = "yarn start:usyd"
+env = { PORT = "3003" }
