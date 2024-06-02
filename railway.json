@@ -1,0 +1,11 @@
+{
+    "$schema": "https://railway.app/railway.schema.json",
+    "build": {
+      "builder": "NIXPACKS",
+      "buildCommand": "bash install_python.sh && npm install --prefix web/test_app_modulaire_socratic"
+    },
+    "deploy": {
+      "startCommand": "bash start_servers.sh"
+    }
+  }
+  
