@@ -40,6 +40,9 @@ FROM nginx:alpine
 # Copie les fichiers construits depuis l'étape de construction
 COPY --from=frontend /app/build /usr/share/nginx/html
 
+# Copie la configuration Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
 # Expose le port utilisé par l'application
 EXPOSE 80
 

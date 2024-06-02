@@ -6,7 +6,7 @@ const AccessDenied = () => {
     <div>
       <h1>Access Denied</h1>
       <p>You do not have access to this page.</p>
-      <Link to="/sign-in/student">Go to Sign In</Link>
+      <Link to="/auth/sign-in">Go to Sign In</Link>
     </div>
   );
 };
