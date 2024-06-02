@@ -1,12 +1,18 @@
 [build]
 builder = "nixpacks"
-base_image = "python:3.8-slim"
+base_image = "debian:latest"
+
+[phases.setup]
+name = "Setup"
+cmds = [
+    "bash install_python.sh"
+]
 
 [phases.backend]
 name = "Backend"
 cmds = [
-    "pip install -r backend/back_socratic/requirements.txt",
-    "python backend/back_socratic/airs/server_run.py"
+    "pip3 install -r backend/back_socratic/requirements.txt",
+    "python3 backend/back_socratic/airs/server_run.py"
 ]
 
 [phases.frontend]
@@ -19,7 +25,7 @@ cmds = [
 [deploy]
 [[deploy.services]]
 name = "backend"
-phases = ["backend"]
+phases = ["setup", "backend"]
 env = { PORT = "8000" }
 
 [[deploy.services]]
