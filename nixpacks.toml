@@ -1,19 +1,12 @@
 [build]
 builder = "nixpacks"
-
-[phases]
-
-[phases.setup]
-name = "Setup"
-cmds = [
-    "apt-get update && apt-get install -y python3-pip"
-]
+base_image = "python:3.8-slim"
 
 [phases.backend]
 name = "Backend"
 cmds = [
-    "pip3 install -r backend/back_socratic/requirements.txt",
-    "python3 backend/back_socratic/airs/server_run.py"
+    "pip install -r backend/back_socratic/requirements.txt",
+    "python backend/back_socratic/airs/server_run.py"
 ]
 
 [phases.frontend]
@@ -26,7 +19,7 @@ cmds = [
 [deploy]
 [[deploy.services]]
 name = "backend"
-phases = ["setup", "backend"]
+phases = ["backend"]
 env = { PORT = "8000" }
 
 [[deploy.services]]
