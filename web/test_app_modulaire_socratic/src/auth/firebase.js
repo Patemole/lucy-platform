@@ -1,30 +1,3 @@
-/*
-// Import the functions you need from the SDKs you need
-// src/auth/firebase.js
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDlJxNYHTyLvBnJMh6dyR6jtG6_LlgjplI",
-  authDomain: "lucy-b4f20.firebaseapp.com",
-  projectId: "lucy-b4f20",
-  storageBucket: "lucy-b4f20.appspot.com",
-  messagingSenderId: "150813727745",
-  appId: "1:150813727745:web:773c421d9c3addc4e13400",
-  measurementId: "G-LMS96M3V86"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export default app;
-*/
-
-
 //NOUVELLE VERSION DE FIREBASE SUR GREGORY.HISSIGER@MY-LUCY.COM
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
