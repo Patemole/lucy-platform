@@ -13,9 +13,8 @@ cmds = [
 [phases.frontend]
 name = "Frontend"
 cmds = [
-    "cd frontend/test_app_modulaire_socratic",
-    "yarn install",
-    "yarn start:upenn"
+    "cd web/test_app_modulaire_socratic",
+    "yarn install"
 ]
 
 [deploy]
@@ -27,17 +26,17 @@ env = { PORT = "8000" }
 [[deploy.services]]
 name = "frontend-upenn"
 phases = ["frontend"]
-cmds = ["cd frontend/test_app_modulaire_socratic", "yarn start:upenn"]
+cmds = ["cd web/test_app_modulaire_socratic", "yarn start:upenn"]
 env = { PORT = "3001" }
 
 [[deploy.services]]
 name = "frontend-harvard"
 phases = ["frontend"]
-cmds = ["cd frontend/test_app_modulaire_socratic", "yarn start:harvard"]
+cmds = ["cd web/test_app_modulaire_socratic", "yarn start:harvard"]
 env = { PORT = "3002" }
 
 [[deploy.services]]
 name = "frontend-usyd"
 phases = ["frontend"]
-cmds = ["cd frontend/test_app_modulaire_socratic", "yarn start:usyd"]
+cmds = ["cd web/test_app_modulaire_socratic", "yarn start:usyd"]
 env = { PORT = "3003" }
