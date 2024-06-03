@@ -1,18 +1,21 @@
 #!/bin/bash
-# Update package list and install prerequisites
+# Met à jour la liste des paquets et installe les prérequis
 apt-get update
 apt-get install -y software-properties-common
 
-# Add deadsnakes PPA (Personal Package Archive) for Python
+# Ajoute le dépôt deadsnakes PPA pour Python
 add-apt-repository ppa:deadsnakes/ppa
 
-# Install the specific version of Python
+# Met à jour la liste des paquets et installe Python 3.11
 apt-get update
 apt-get install -y python3.11 python3.11-venv python3.11-dev
 
-# Create a symlink for python and pip if needed
+# Crée un lien symbolique pour python et pip si nécessaire
 ln -sf /usr/bin/python3.11 /usr/bin/python
 ln -sf /usr/bin/pip3 /usr/bin/pip
 
-# Install the Python dependencies
-pip install -r backend/back_socratic/requirements.txt
+# Déplace le répertoire vers celui contenant requirements.txt
+cd back_socratic
+
+# Installe les dépendances Python
+pip install -r requirements.txt

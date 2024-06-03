@@ -1,27 +1,32 @@
+# Configuration pour le build
 [build]
 builder = "nixpacks"
 base_image = "debian:latest"
 
+# Phase de setup
 [phases.setup]
 name = "Setup"
 cmds = [
-    "bash install_python.sh"
+    "bash install_python.sh"  # Exécute le script d'installation de Python
 ]
 
+# Phase backend
 [phases.backend]
 name = "Backend"
 cmds = [
-    "pip install -r backend/back_socratic/requirements.txt",
-    "python3 backend/back_socratic/airs/server_run.py"
+    "pip install -r back_socratic/requirements.txt",  # Installe les dépendances Python
+    "python3 back_socratic/airs/server_run.py"  # Démarre le serveur backend
 ]
 
+# Phase frontend
 [phases.frontend]
 name = "Frontend"
 cmds = [
-    "cd web/test_app_modulaire_socratic",
-    "yarn install"
+    "cd web/test_app_modulaire_socratic",  # Change le répertoire vers le frontend
+    "yarn install"  # Installe les dépendances du frontend
 ]
 
+# Déploiement des services
 [deploy]
 [[deploy.services]]
 name = "backend"
