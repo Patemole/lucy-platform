@@ -1,22 +1,33 @@
 [build]
 builder = "nixpacks"
-base_image = "python:3.11"
+base_image = "python:3.11-slim"
+
+[phases.setup]
+name = "Setup"
+cmds = [
+    "echo '--- Setup Phase: Starting ---'",
+    "apt-get update",
+    "apt-get install -y curl gnupg",
+    "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -",
+    "echo 'deb https://dl.yarnpkg.com/debian/ stable main' | tee /etc/apt/sources.list.d/yarn.list",
+    "apt-get update && apt-get install -y yarn",
+    "apt-get install -y python3 python3-pip",  # Installation manuelle de Python3 et pip si nécessaire
+    "ln -s /usr/bin/python3 /usr/bin/python",  # Crée un lien symbolique pour python vers python3
+    "echo '--- Setup Phase: Completed ---'"
+]
 
 [phases.backend]
 name = "Backend"
 cmds = [
     "echo '--- Backend Phase: Starting ---'",
-    "ls -la /usr/local/bin",  # Liste le contenu de /usr/local/bin pour voir où sont python et pip
-    "ls -la /usr/bin",  # Liste le contenu de /usr/bin pour vérifier d'autres emplacements possibles
-    "ls -la /bin",  # Liste le contenu de /bin pour vérifier d'autres emplacements possibles
-    "ls -la /usr/local",  # Liste le contenu de /usr/local pour vérifier d'autres emplacements possibles
-    "find / -name python",  # Cherche le binaire python sur tout le système
-    "echo '--- Searching for Python and pip completed ---'",
-    "python --version || true",  # Vérifie la version de Python, continue même si erreur
-    "python3 --version || true",  # Vérifie la version de Python3, continue même si erreur
-    "pip --version || true",  # Vérifie la version de pip, continue même si erreur
-    "pip3 --version || true",  # Vérifie la version de pip3, continue même si erreur
-    "echo '--- Backend Phase diagnostics completed ---'"
+    "python3 --version",  # Vérifiez la version de Python3 explicitement
+    "python3 -m pip --version",  # Vérifiez la version de pip via le module Python3 explicitement
+    "ls -l /app",
+    "python3 -m pip install --upgrade pip",
+    "python3 -m pip install -r back_socratic/requirements.txt",
+    "echo '--- Backend Phase: Installed Python dependencies ---'",
+    "python3 back_socratic/airs/server_run.py",
+    "echo '--- Backend Phase: Completed ---'"
 ]
 
 [phases.frontend]
@@ -32,7 +43,7 @@ cmds = [
 [deploy]
 [[deploy.services]]
 name = "backend"
-phases = ["backend"]
+phases = ["setup", "backend"]
 env = { PORT = "8000" }
 
 [[deploy.services]]
