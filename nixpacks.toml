@@ -6,6 +6,7 @@ base_image = "python:3.11"
 name = "Backend"
 cmds = [
     "echo '--- Backend Phase: Starting ---'",
+    "ls -la /usr/local/bin",  # Liste le contenu de /usr/local/bin pour voir où sont python et pip
     "/usr/local/bin/python --version",  # Vérifiez la version de Python explicitement
     "/usr/local/bin/python -m pip --version",  # Vérifiez la version de pip via le module Python explicitement
     "ls -l /app",  # Liste les fichiers dans le répertoire de travail pour vérifier la présence de requirements.txt
