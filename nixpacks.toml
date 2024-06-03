@@ -1,52 +1,60 @@
-# Configuration pour le build
 [build]
 builder = "nixpacks"
-base_image = "debian:latest"
+base_image = "python:3.11"
 
-# Phase de setup
-[phases.setup]
-name = "Setup"
-cmds = [
-    "bash install_python.sh"  # Exécute le script d'installation de Python
-]
-
-# Phase backend
 [phases.backend]
 name = "Backend"
 cmds = [
-    "pip install -r back_socratic/requirements.txt",  # Installe les dépendances Python
-    "python3 back_socratic/airs/server_run.py"  # Démarre le serveur backend
+    "echo '--- Backend Phase: Starting ---'",
+    "pip install --upgrade pip",  # Mise à jour de pip pour s'assurer d'avoir la dernière version
+    "pip install -r back_socratic/requirements.txt",
+    "echo '--- Backend Phase: Installed Python dependencies ---'",
+    "python back_socratic/airs/server_run.py",
+    "echo '--- Backend Phase: Completed ---'"
 ]
 
-# Phase frontend
 [phases.frontend]
 name = "Frontend"
 cmds = [
-    "cd web/test_app_modulaire_socratic",  # Change le répertoire vers le frontend
-    "yarn install"  # Installe les dépendances du frontend
+    "echo '--- Frontend Phase: Starting ---'",
+    "cd web/test_app_modulaire_socratic",
+    "yarn install",
+    "echo '--- Frontend Phase: Installed frontend dependencies ---'",
+    "echo '--- Frontend Phase: Completed ---'"
 ]
 
-# Déploiement des services
 [deploy]
 [[deploy.services]]
 name = "backend"
-phases = ["setup", "backend"]
+phases = ["backend"]
 env = { PORT = "8000" }
 
 [[deploy.services]]
 name = "frontend-upenn"
 phases = ["frontend"]
-cmds = ["cd web/test_app_modulaire_socratic", "yarn start:upenn"]
+cmds = [
+    "echo '--- Starting frontend-upenn ---'",
+    "cd web/test_app_modulaire_socratic",
+    "yarn start:upenn"
+]
 env = { PORT = "3001" }
 
 [[deploy.services]]
 name = "frontend-harvard"
 phases = ["frontend"]
-cmds = ["cd web/test_app_modulaire_socratic", "yarn start:harvard"]
+cmds = [
+    "echo '--- Starting frontend-harvard ---'",
+    "cd web/test_app_modulaire_socratic",
+    "yarn start:harvard"
+]
 env = { PORT = "3002" }
 
 [[deploy.services]]
 name = "frontend-usyd"
 phases = ["frontend"]
-cmds = ["cd web/test_app_modulaire_socratic", "yarn start:usyd"]
+cmds = [
+    "echo '--- Starting frontend-usyd ---'",
+    "cd web/test_app_modulaire_socratic",
+    "yarn start:usyd"
+]
 env = { PORT = "3003" }
