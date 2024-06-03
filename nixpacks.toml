@@ -6,14 +6,13 @@ base_image = "python:3.11"
 name = "Backend"
 cmds = [
     "echo '--- Backend Phase: Starting ---'",
-    "which python",  # Vérifiez le chemin du binaire Python
-    "python --version",  # Vérifiez la version de Python
-    "python -m pip --version",  # Vérifiez la version de pip via le module Python
+    "/usr/local/bin/python --version",  # Vérifiez la version de Python explicitement
+    "/usr/local/bin/python -m pip --version",  # Vérifiez la version de pip via le module Python explicitement
     "ls -l /app",  # Liste les fichiers dans le répertoire de travail pour vérifier la présence de requirements.txt
-    "python -m pip install --upgrade pip",  # Mise à jour de pip pour s'assurer d'avoir la dernière version
-    "python -m pip install -r back_socratic/requirements.txt",
+    "/usr/local/bin/python -m pip install --upgrade pip",  # Mise à jour de pip pour s'assurer d'avoir la dernière version
+    "/usr/local/bin/python -m pip install -r back_socratic/requirements.txt",
     "echo '--- Backend Phase: Installed Python dependencies ---'",
-    "python back_socratic/airs/server_run.py",
+    "/usr/local/bin/python back_socratic/airs/server_run.py",
     "echo '--- Backend Phase: Completed ---'"
 ]
 
